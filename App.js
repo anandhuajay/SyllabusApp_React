@@ -1,63 +1,52 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  StatusBar,Image
-} from 'react-native';
+import { View, FlatList, Image, StyleSheet, Text, SafeAreaView } from 'react-native';
 
-const DATA = [
-  {
-    id: 1,
-    title: 'First Item',
-    imageUrl: 'https://images.deccanchronicle.com/dc-Cover-k7n6fqmpc9hl2m0fo1vgnuh5f1-20170107071444.Medi.jpeg'
-  },
-  {
-    id: 2,
-    title: 'Second Item',
-  },
-  {
-    id: 3,
-    title: 'Third Item',
-  },
+const data = [
+  { id: '1', imageUrl: 'https://images.deccanchronicle.com/dc-Cover-k7n6fqmpc9hl2m0fo1vgnuh5f1-20170107071444.Medi.jpeg' },
+  { id: '2', imageUrl: 'https://courses.ind.in/img/b/download-emblem-of-calicut-university.png' },
+  {id : '3', imageUrl: 'https://upload.wikimedia.org/wikipedia/ta/9/9f/Logo_of_University_of_Kerala.png'},
+  {id : '4',imageUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7OB9Q3jtYsylWUIJMRyM5SL1IuVf7GZT1BfNISlmsTg&s'}
 ];
 
-const Item = ({title}) => (
+const renderItem = ({ item }) => (
   <View style={styles.item}>
-    <Image
-    source={{uri: Item.imageUrl}} style={{height:20,width:20}}/>
-    <Text style={styles.title}>{title}</Text>
+  
+    
+    <Image source={{ uri: item.imageUrl }} 
+    style={{height:150,width:150}}
+    />
+   
   </View>
 );
 
-const App = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={DATA}
-        renderItem={({item}) => <Item title={item.title} />}
-        keyExtractor={item => item.id}
-      />
-    </SafeAreaView>
-  );
-};
+const keyExtractor = (item) => item.id;
+
+const MyFlatList = () => (
+  <FlatList
+    data={data}
+    renderItem={renderItem}
+    keyExtractor={keyExtractor}
+    numColumns={2} 
+    
+    
+  />
+);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
   item: {
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    flex: 1,
+    margin: 8,
+    borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor:'red',
+    alignItems:'center'
+    
   },
-  title: {
-    fontSize: 32,
+  image: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
   },
 });
 
-export default App;
+export default MyFlatList;
